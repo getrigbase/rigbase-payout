@@ -1,0 +1,156 @@
+{
+  "command": "grant",
+  "mode": "live",
+  "startedAt": "2026-11-20T15:01:32.989Z",
+  "wallet": "0x22d66bD658ad8b5269998545719941479ef4478d",
+  "chainId": 42220,
+  "attributionCode": "celo_f41eab517821",
+  "suffix": "0x63656c6f5f663431656162353137383231110080218021802180218021802180218021",
+  "events": [
+    {
+      "at": "2026-11-20T15:01:32.991Z",
+      "event": "grant.permissions",
+      "sessionKey": "0xb2b3F9D2EffD520b6f27576b8281C7220a83AF13",
+      "permissions": {
+        "calls": [
+          {
+            "to": "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
+            "signature": "approve(address,uint256)"
+          },
+          {
+            "to": "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
+            "signature": "transfer(address,uint256)"
+          },
+          {
+            "to": "0xa9AA0a64769cBed4d3B1Ceb4Df01CdE915C235b3"
+          },
+          {
+            "to": "0xF6829D7393dAe24509eb1E52eE8e572e2E271a4f",
+            "signature": "transfer(address,uint256)"
+          },
+          {
+            "to": "0x18Bc5bcC660cf2B9cE3cd51a404aFe1a0cBD3C22",
+            "signature": "transfer(address,uint256)"
+          }
+        ],
+        "spend": [
+          {
+            "token": "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
+            "limit": "15000000",
+            "period": "week"
+          },
+          {
+            "token": "0xF6829D7393dAe24509eb1E52eE8e572e2E271a4f",
+            "limit": "25000000000",
+            "period": "week"
+          },
+          {
+            "token": "0x18Bc5bcC660cf2B9cE3cd51a404aFe1a0cBD3C22",
+            "limit": "25000000",
+            "period": "week"
+          }
+        ]
+      },
+      "expiry": "2026-12-04T15:01:32.000Z"
+    },
+    {
+      "at": "2026-11-20T15:01:38.210Z",
+      "event": "grant.quote",
+      "lines": [
+        "chain 42220 account: fee 0.089783 USD₮, value 19.225035330371745768 CELO"
+      ],
+      "raw": {
+        "lines": [
+          {
+            "chainId": 42220,
+            "kind": "account",
+            "payer": "0x22d66bD658ad8b5269998545719941479ef4478d",
+            "feeToken": "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
+            "value": "19225035330371745768",
+            "needed": "19225035330371745768",
+            "neededFromRelay": false,
+            "legs": [
+              {
+                "chainId": 42220,
+                "combinedGas": "2695136"
+              }
+            ],
+            "charges": [
+              {
+                "chainId": 42220,
+                "feeToken": "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
+                "fee": "89783",
+                "feeTokenDeficit": "0"
+              }
+            ],
+            "fee": "89783",
+            "needs": [
+              {
+                "chainId": 42220,
+                "token": "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
+                "amount": "89783",
+                "fromRelay": false,
+                "symbol": "USD₮",
+                "decimals": 6
+              },
+              {
+                "chainId": 42220,
+                "token": "0x0000000000000000000000000000000000000000",
+                "amount": "19225035330371745768",
+                "fromRelay": false
+              }
+            ]
+          }
+        ],
+        "balances": [
+          {
+            "chainId": 42220,
+            "address": "0x22d66bD658ad8b5269998545719941479ef4478d",
+            "token": "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
+            "symbol": "USD₮",
+            "decimals": 6,
+            "balance": "17121009",
+            "needed": "89783",
+            "sufficient": true
+          },
+          {
+            "chainId": 42220,
+            "address": "0x22d66bD658ad8b5269998545719941479ef4478d",
+            "token": "0x0000000000000000000000000000000000000000",
+            "symbol": "CELO",
+            "decimals": 18,
+            "balance": "49908451444087349342",
+            "needed": "19225035330371745768",
+            "sufficient": true
+          }
+        ],
+        "complete": true
+      }
+    },
+    {
+      "at": "2026-11-20T15:01:56.629Z",
+      "event": "grant.done",
+      "status": "granted",
+      "txHash": "0x7116b2dd57ea77544fbdb691ae6c2f6e94ec169ea893ad592969928c4c9c92d2",
+      "celoscan": "https://celoscan.io/tx/0x7116b2dd57ea77544fbdb691ae6c2f6e94ec169ea893ad592969928c4c9c92d2",
+      "keyId": "0x104701a5f782b37df1a09ccf48a633e0e954d727e6a548309400443b58c0820e",
+      "legs": [
+        {
+          "chainId": 42220,
+          "kind": "account",
+          "status": "CONFIRMED",
+          "transactionHash": "0x7116b2dd57ea77544fbdb691ae6c2f6e94ec169ea893ad592969928c4c9c92d2",
+          "blockNumber": "83286143"
+        },
+        {
+          "chainId": 42220,
+          "kind": "registry",
+          "status": "CONFIRMED",
+          "via": "bundled",
+          "transactionHash": "0x7116b2dd57ea77544fbdb691ae6c2f6e94ec169ea893ad592969928c4c9c92d2",
+          "blockNumber": "83286143"
+        }
+      ]
+    }
+  ]
+}

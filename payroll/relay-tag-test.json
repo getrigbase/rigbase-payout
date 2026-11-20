@@ -1,0 +1,7 @@
+{
+  "id": "relay-tag-test",
+  "note": "Smallest relayed payout through the Altana session, to check that Loops credits a nested tag.",
+  "items": [
+    { "contractor": "contractor-remote-usd", "usdt": "0.10", "memo": "Relay tag test" }
+  ]
+}

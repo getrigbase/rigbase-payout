@@ -1,0 +1,50 @@
+{
+  "command": "run",
+  "mode": "live",
+  "startedAt": "2026-11-20T15:02:51.616Z",
+  "wallet": "0x22d66bD658ad8b5269998545719941479ef4478d",
+  "chainId": 42220,
+  "attributionCode": "celo_f41eab517821",
+  "suffix": "0x63656c6f5f663431656162353137383231110080218021802180218021802180218021",
+  "events": [
+    {
+      "at": "2026-11-20T15:02:51.618Z",
+      "event": "payroll.start",
+      "payroll": "demo-over-cap",
+      "business": "RigBase Studio",
+      "weeklyCapUsdt": "15",
+      "spentLast7dUsdt": "2.6"
+    },
+    {
+      "at": "2026-11-20T15:02:51.620Z",
+      "event": "payout.calls",
+      "contractor": "contractor-remote-usd",
+      "to": "0x4BA98f11F6dA3d87A3E9840EB21253815206B838",
+      "corridor": "USDT",
+      "usdt": "16.00",
+      "memo": "Over-cap test (must be rejected)",
+      "calls": [
+        {
+          "to": "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
+          "data": "0xa9059cbb0000000000000000000000004ba98f11f6da3d87a3e9840eb21253815206b8380000000000000000000000000000000000000000000000000000000000f4240063656c6f5f663431656162353137383231110080218021802180218021802180218021"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-20T15:02:53.397Z",
+      "event": "payout.rejected",
+      "contractor": "contractor-remote-usd",
+      "to": "0x4BA98f11F6dA3d87A3E9840EB21253815206B838",
+      "corridor": "USDT",
+      "usdt": "16.00",
+      "memo": "Over-cap test (must be rejected)",
+      "by": "altana-session-cap (relay simulation of on-chain policy)",
+      "reason": "This session key's spending limit does not cover this in USD₮. Grant a new session key with a higher limit, as limits cannot be raised."
+    },
+    {
+      "at": "2026-11-20T15:02:53.398Z",
+      "event": "payroll.end",
+      "spentLast7dUsdt": "2.6"
+    }
+  ]
+}

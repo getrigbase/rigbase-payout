@@ -124,6 +124,7 @@ LIVE=1 npm run pay -- identity --live
 LIVE=1 npm run pay -- grant --live
 LIVE=1 npm run pay -- run payroll/demo-week-47.json --live
 LIVE=1 npm run pay -- run payroll/demo-over-cap.json --live --probe-cap
+npm run pay -- self-delegate --live             # only if the relay reports a stale 7702 auth nonce
 npm run pay -- verify <txhash> [...]               # confirm our tag is on-chain
 ```
 
@@ -142,10 +143,16 @@ Agent wallet: [`0x22d66bD658ad8b5269998545719941479ef4478d`](https://celoscan.io
 | ERC-8004 register, **agentId 10076** | direct | [0x16617527…c7d1](https://celoscan.io/tx/0x16617527c18632ae4cb5f3d113d341f361338e4c5832cde29c9788c10670c7d1) | ✅ tail, `verifyTx` |
 | Treasury top-up: approve CELO to the Textile reactor | direct | [0xf970babb…1dc5](https://celoscan.io/tx/0xf970babb365423f9225503de7f491cd1accb94d4bf86de290f8ece8206871dc5) | ✅ tail, `verifyTx` |
 | Treasury top-up: 300 CELO → 17.121009 USD₮ via Textile RFQ | direct | [0x791a936f…de64](https://celoscan.io/tx/0x791a936fb2f06dfaba0e1a1f8fb58cccf62eea3ce5f1347a25b2d54aff47de64) | ✅ tail, `verifyTx` |
-| Altana `grantSession` (15 USD₮/week) | relayed | _pending_ | _pending_ |
-| Payout: contractor-lagos, USD₮ → cNGN via Textile | relayed | _pending_ | _pending_ |
-| Payout: contractor-remote-usd, USD₮ | relayed | _pending_ | _pending_ |
-| Over-cap payout (16 USD₮): refused, not broadcast | n/a | n/a | n/a |
+| EIP-7702 delegation of the wallet to Altana's `accountProxy` (`0xc0f16888…6fa3`, from the relay's `wallet_getCapabilities`) | direct | [0x8ac312d5…cd85](https://celoscan.io/tx/0x8ac312d5d46fa5b8ae4a6705488106e79f42a4c49719a39a7f6edeb1d310cd85) | ✅ tail, `verifyTx` |
+| Altana `grantSession`: 15 USD₮/week cap + allowlist + 14-day expiry, key registered in the Keystore | relayed | [0x7116b2dd…92d2](https://celoscan.io/tx/0x7116b2dd57ea77544fbdb691ae6c2f6e94ec169ea893ad592969928c4c9c92d2) | ❌ untagged (the SDK builds this intent; there is no hook) |
+| Relay tag test: 0.10 USD₮ to contractor-remote-usd via the session | relayed | [0x51172c58…a0be](https://celoscan.io/tx/0x51172c5868e446284a324d51633a79c92f3b0342d3bdea64ac39a442a1fca0be) | ✅ inside the intent (not at tail) |
+| Payout: contractor-lagos, 1.50 USD₮ → 2,161.60 cNGN via Textile (approve + swap + transfer, one intent) | relayed | [0xdce0d203…b86e](https://celoscan.io/tx/0xdce0d203d8a7587170fa9ebb11a38bc261f64be18492c53629341a02a06cb86e) | ✅ inside the intent |
+| Payout: contractor-remote-usd, 1.00 USD₮ | relayed | [0xa159d88d…7452](https://celoscan.io/tx/0xa159d88dfad7b2e1a977fd08a76b0e1fe5c91d70ebc70ac1f0e0436274387452) | ✅ inside the intent |
+| Over-cap payout (16 USD₮): refused by the session's spend limit ("spending limit does not cover this in USD₮"), never broadcast | n/a | n/a | n/a |
+
+ERC-8004 agent: **#10076** in `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432`.
+
+**Lesson learned (Altana):** the wallet's first transaction must go through the relay. Our dry runs registered the account with the relay at EOA nonce 0, and three direct transactions then moved the nonce. The relay kept the stale 7702 authorization (`invalid auth item nonce, expected 3, got 0`). `pay self-delegate --live` fixes this with one tagged type-4 tx to the relay's own `accountProxy`.
 
 The contractor addresses are fictional demo recipients controlled by RigBase.
 

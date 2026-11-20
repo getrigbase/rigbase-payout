@@ -1,0 +1,54 @@
+{
+  "command": "run",
+  "mode": "live",
+  "startedAt": "2026-11-20T15:02:11.110Z",
+  "wallet": "0x22d66bD658ad8b5269998545719941479ef4478d",
+  "chainId": 42220,
+  "attributionCode": "celo_f41eab517821",
+  "suffix": "0x63656c6f5f663431656162353137383231110080218021802180218021802180218021",
+  "events": [
+    {
+      "at": "2026-11-20T15:02:11.112Z",
+      "event": "payroll.start",
+      "payroll": "relay-tag-test",
+      "business": "RigBase Studio",
+      "weeklyCapUsdt": "15",
+      "spentLast7dUsdt": "0"
+    },
+    {
+      "at": "2026-11-20T15:02:11.114Z",
+      "event": "payout.calls",
+      "contractor": "contractor-remote-usd",
+      "to": "0x4BA98f11F6dA3d87A3E9840EB21253815206B838",
+      "corridor": "USDT",
+      "usdt": "0.10",
+      "memo": "Relay tag test",
+      "calls": [
+        {
+          "to": "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
+          "data": "0xa9059cbb0000000000000000000000004ba98f11f6da3d87a3e9840eb21253815206b83800000000000000000000000000000000000000000000000000000000000186a063656c6f5f663431656162353137383231110080218021802180218021802180218021"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-20T15:02:15.467Z",
+      "event": "payout.confirmed",
+      "contractor": "contractor-remote-usd",
+      "to": "0x4BA98f11F6dA3d87A3E9840EB21253815206B838",
+      "corridor": "USDT",
+      "usdt": "0.10",
+      "memo": "Relay tag test",
+      "usdtSpent": "100000",
+      "callsId": "0x0d3242f6f1164bc776edcec4eee44314ba3bf7be529b4ccac82ecc53263f098a",
+      "txHash": "0x51172c5868e446284a324d51633a79c92f3b0342d3bdea64ac39a442a1fca0be",
+      "status": "CONFIRMED",
+      "statusCode": 200,
+      "celoscan": "https://celoscan.io/tx/0x51172c5868e446284a324d51633a79c92f3b0342d3bdea64ac39a442a1fca0be"
+    },
+    {
+      "at": "2026-11-20T15:02:15.468Z",
+      "event": "payroll.end",
+      "spentLast7dUsdt": "0.1"
+    }
+  ]
+}

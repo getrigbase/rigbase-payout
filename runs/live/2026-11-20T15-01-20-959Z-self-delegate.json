@@ -1,0 +1,29 @@
+{
+  "command": "self-delegate",
+  "mode": "live",
+  "startedAt": "2026-11-20T15:01:20.959Z",
+  "wallet": "0x22d66bD658ad8b5269998545719941479ef4478d",
+  "chainId": 42220,
+  "attributionCode": "celo_f41eab517821",
+  "suffix": "0x63656c6f5f663431656162353137383231110080218021802180218021802180218021",
+  "events": [
+    {
+      "at": "2026-11-20T15:01:21.448Z",
+      "event": "delegate.plan",
+      "accountProxy": "0xc0f16888f4198f53892c53af859f673e23f26fa3",
+      "currentCode": "0x"
+    },
+    {
+      "at": "2026-11-20T15:01:21.636Z",
+      "event": "delegate.sent",
+      "txHash": "0x8ac312d5d46fa5b8ae4a6705488106e79f42a4c49719a39a7f6edeb1d310cd85",
+      "celoscan": "https://celoscan.io/tx/0x8ac312d5d46fa5b8ae4a6705488106e79f42a4c49719a39a7f6edeb1d310cd85"
+    },
+    {
+      "at": "2026-11-20T15:01:22.122Z",
+      "event": "delegate.confirmed",
+      "txHash": "0x8ac312d5d46fa5b8ae4a6705488106e79f42a4c49719a39a7f6edeb1d310cd85",
+      "status": "success"
+    }
+  ]
+}

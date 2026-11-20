@@ -120,6 +120,22 @@ async function main() {
       await textile.submit(firm.rfqId, firm.claimToken, sh);
       const r = await pub.waitForTransactionReceipt({ hash: sh });
       log.add("fund.swap.confirmed", { txHash: sh, status: r.status });
+    } else if (cmd === "self-delegate") {
+      // Recovery for a stale relay record: delegate the EOA (EIP-7702) to Altana's accountProxy
+      // ourselves, read live from the relay's wallet_getCapabilities, in one tagged tx to self.
+      const caps = await fetch(CELO.relayUrl!, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "wallet_getCapabilities", params: [["0xa4ec"]] }) }).then((r) => r.json());
+      const proxy = caps.result["0xa4ec"].contracts.accountProxy.address as `0x${string}`;
+      const code = await pub.getCode({ address: admin.address });
+      log.add("delegate.plan", { accountProxy: proxy, currentCode: code ?? "0x" });
+      if (code && code.toLowerCase() === ("0xef0100" + proxy.slice(2)).toLowerCase()) { log.add("delegate.skip", { reason: "already delegated" }); return; }
+      if (!live) return;
+      const wc = taggedWalletClient(admin.account);
+      const authorization = await wc.signAuthorization({ account: admin.account, contractAddress: proxy, executor: "self" });
+      // Bare suffix calldata hits the account fallback and reverts; call the read-only eip712Domain() instead (tag appended).
+      const hash = await wc.sendTransaction({ to: admin.address, data: "0x84b0196e", authorizationList: [authorization] });
+      log.add("delegate.sent", { txHash: hash, celoscan: txUrl(hash) });
+      const r = await pub.waitForTransactionReceipt({ hash });
+      log.add("delegate.confirmed", { txHash: hash, status: r.status, code: await pub.getCode({ address: admin.address }) });
     } else if (cmd === "revoke") {
       const sk = loadOrCreateSessionKey({ create: false });
       const session = sk && loadSession(sk.signer);
