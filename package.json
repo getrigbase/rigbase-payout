@@ -6,7 +6,8 @@
     "pay": "tsx src/cli.ts",
     "typecheck": "tsc --noEmit",
     "secret-scan": "bash scripts/secret-scan.sh",
-    "demo:dry": "tsx src/cli.ts status && tsx src/cli.ts identity && tsx src/cli.ts grant && tsx src/cli.ts run payroll/demo-full.json && tsx src/cli.ts run payroll/demo-over-cap.json"
+    "demo:dry": "tsx src/cli.ts status && tsx src/cli.ts identity && tsx src/cli.ts grant && tsx src/cli.ts run payroll/demo-full.json && tsx src/cli.ts run payroll/demo-over-cap.json",
+    "test": "tsx src/selftest.ts"
   },
   "repository": {
     "type": "git",
