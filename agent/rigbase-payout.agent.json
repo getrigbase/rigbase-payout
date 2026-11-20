@@ -1,0 +1,13 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "RigBase Payout",
+  "description": "Contractor-payroll agent for RigBase Studio. Pays freelance contractors in their local stablecoin (cNGN, IDRX) or USDT on Celo, converting via Textile FX, and spends only through an Altana session key with a weekly cap, a contract allowlist and an expiry.",
+  "image": "https://github.com/getrigbase.png",
+  "services": [
+    { "name": "web", "endpoint": "https://github.com/getrigbase/rigbase-payout" }
+  ],
+  "x402Support": false,
+  "active": true,
+  "registrations": [],
+  "supportedTrust": ["reputation"]
+}
