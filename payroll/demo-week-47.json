@@ -1,0 +1,8 @@
+{
+  "id": "demo-week-47",
+  "note": "First live payroll: one FX payout via Textile, one direct USDT payout.",
+  "items": [
+    { "contractor": "contractor-lagos", "usdt": "1.50", "memo": "Logo refresh" },
+    { "contractor": "contractor-remote-usd", "usdt": "1.00", "memo": "QA pass" }
+  ]
+}

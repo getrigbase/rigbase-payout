@@ -1,0 +1,9 @@
+{
+  "id": "demo-full",
+  "note": "All three corridors, for dry runs.",
+  "items": [
+    { "contractor": "contractor-lagos", "usdt": "2.00", "memo": "Design sprint" },
+    { "contractor": "contractor-jakarta", "usdt": "2.00", "memo": "Backend fixes" },
+    { "contractor": "contractor-remote-usd", "usdt": "1.00", "memo": "QA pass" }
+  ]
+}

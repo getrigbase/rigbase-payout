@@ -1,0 +1,34 @@
+{
+  "business": "RigBase Studio",
+  "chainId": 42220,
+  "fundingToken": "USDT",
+  "session": {
+    "weeklyCapUsdt": "15",
+    "localCapsPerWeek": { "cNGN": "25000", "IDRX": "250000" },
+    "expiryDays": 14,
+    "feeTokenDailyCapUsdt": "1"
+  },
+  "contractors": [
+    {
+      "id": "contractor-lagos",
+      "label": "Contractor (Lagos, fictional demo)",
+      "corridor": "USDT->cNGN",
+      "payoutToken": "cNGN",
+      "address": "0xceBab84B36620630859040261bA3E1Bae528b000"
+    },
+    {
+      "id": "contractor-jakarta",
+      "label": "Contractor (Jakarta, fictional demo)",
+      "corridor": "USDT->IDRX",
+      "payoutToken": "IDRX",
+      "address": "0xFE73e70B8CC08fFC9F5d4D54Af2Ab48BFfC13B34"
+    },
+    {
+      "id": "contractor-remote-usd",
+      "label": "Contractor (remote, paid in USDT, fictional demo)",
+      "corridor": "USDT",
+      "payoutToken": "USDT",
+      "address": "0x4BA98f11F6dA3d87A3E9840EB21253815206B838"
+    }
+  ]
+}

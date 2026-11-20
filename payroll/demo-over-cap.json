@@ -1,0 +1,7 @@
+{
+  "id": "demo-over-cap",
+  "note": "Deliberately exceeds the 15 USDT/week session cap. Must be refused (locally and by the chain).",
+  "items": [
+    { "contractor": "contractor-remote-usd", "usdt": "16.00", "memo": "Over-cap test (must be rejected)" }
+  ]
+}
