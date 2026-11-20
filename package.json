@@ -1,0 +1,44 @@
+{
+  "name": "rigbase-payout",
+  "version": "0.1.0",
+  "description": "Contractor-payroll agent for RigBase Studio on Celo: Altana session wallet with a weekly cap + Textile FX corridors.",
+  "scripts": {
+    "pay": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "secret-scan": "bash scripts/secret-scan.sh",
+    "demo:dry": "tsx src/cli.ts status && tsx src/cli.ts identity && tsx src/cli.ts grant && tsx src/cli.ts run payroll/demo-full.json && tsx src/cli.ts run payroll/demo-over-cap.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getrigbase/rigbase-payout"
+  },
+  "author": "RigBase",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/getrigbase/rigbase-payout/issues"
+  },
+  "homepage": "https://github.com/getrigbase/rigbase-payout#readme",
+  "dependencies": {
+    "@altananetwork/sdk": "^1.1.0",
+    "@celo/attribution-tags": "^0.5.0",
+    "viem": "^2.58.2"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "celo",
+    "altana",
+    "textile",
+    "erc-8004",
+    "erc-8021",
+    "agents"
+  ]
+}
