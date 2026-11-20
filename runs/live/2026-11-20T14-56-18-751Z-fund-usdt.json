@@ -1,0 +1,45 @@
+{
+  "command": "fund-usdt",
+  "mode": "live",
+  "startedAt": "2026-11-20T14:56:18.751Z",
+  "wallet": "0x22d66bD658ad8b5269998545719941479ef4478d",
+  "chainId": 42220,
+  "attributionCode": "celo_f41eab517821",
+  "suffix": "0x63656c6f5f663431656162353137383231110080218021802180218021802180218021",
+  "events": [
+    {
+      "at": "2026-11-20T14:56:20.198Z",
+      "event": "fund.preview",
+      "sellCELO": "300",
+      "buyUSDT": "17.121009",
+      "marketUsd": 17.0685,
+      "status": "preview"
+    },
+    {
+      "at": "2026-11-20T14:56:22.163Z",
+      "event": "fund.firm",
+      "rfqId": "rfq_t99ma-vbudkeePxs",
+      "takerPays": "300000000000000000000",
+      "buyUSDT": 17.121009,
+      "expiresAt": "2026-11-20T14:57:51.000Z"
+    },
+    {
+      "at": "2026-11-20T14:56:22.337Z",
+      "event": "fund.approve.sent",
+      "txHash": "0xf970babb365423f9225503de7f491cd1accb94d4bf86de290f8ece8206871dc5",
+      "celoscan": "https://celoscan.io/tx/0xf970babb365423f9225503de7f491cd1accb94d4bf86de290f8ece8206871dc5"
+    },
+    {
+      "at": "2026-11-20T14:56:23.369Z",
+      "event": "fund.swap.sent",
+      "txHash": "0x791a936fb2f06dfaba0e1a1f8fb58cccf62eea3ce5f1347a25b2d54aff47de64",
+      "celoscan": "https://celoscan.io/tx/0x791a936fb2f06dfaba0e1a1f8fb58cccf62eea3ce5f1347a25b2d54aff47de64"
+    },
+    {
+      "at": "2026-11-20T14:56:24.202Z",
+      "event": "fund.swap.confirmed",
+      "txHash": "0x791a936fb2f06dfaba0e1a1f8fb58cccf62eea3ce5f1347a25b2d54aff47de64",
+      "status": "success"
+    }
+  ]
+}

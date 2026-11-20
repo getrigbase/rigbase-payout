@@ -7,6 +7,9 @@ export const EXPLORER = "https://celoscan.io";
 
 export type TokenSymbol = "USDT" | "USDC" | "cNGN" | "IDRX";
 
+/** CELO's ERC-20 interface (GoldToken). */
+export const CELO_TOKEN = "0x471EcE3750Da237f93B8E339c536989b8978a438" as const;
+
 export const TOKENS: Record<TokenSymbol, { address: Address; decimals: number }> = {
   USDT: { address: "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e", decimals: 6 },
   USDC: { address: "0xcebA9300f2b948710d2653dD7B07f33A8B32118C", decimals: 6 },

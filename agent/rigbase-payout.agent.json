@@ -4,10 +4,20 @@
   "description": "Contractor-payroll agent for RigBase Studio. Pays freelance contractors in their local stablecoin (cNGN, IDRX) or USDT on Celo, converting via Textile FX, and spends only through an Altana session key with a weekly cap, a contract allowlist and an expiry.",
   "image": "https://github.com/getrigbase.png",
   "services": [
-    { "name": "web", "endpoint": "https://github.com/getrigbase/rigbase-payout" }
+    {
+      "name": "web",
+      "endpoint": "https://github.com/getrigbase/rigbase-payout"
+    }
   ],
   "x402Support": false,
   "active": true,
-  "registrations": [],
-  "supportedTrust": ["reputation"]
+  "registrations": [
+    {
+      "agentId": 10076,
+      "agentRegistry": "eip155:42220:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+    }
+  ],
+  "supportedTrust": [
+    "reputation"
+  ]
 }

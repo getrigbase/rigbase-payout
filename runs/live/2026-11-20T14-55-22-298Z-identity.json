@@ -1,0 +1,38 @@
+{
+  "command": "identity",
+  "mode": "live",
+  "startedAt": "2026-11-20T14:55:22.298Z",
+  "wallet": "0x22d66bD658ad8b5269998545719941479ef4478d",
+  "chainId": 42220,
+  "attributionCode": "celo_f41eab517821",
+  "suffix": "0x63656c6f5f663431656162353137383231110080218021802180218021802180218021",
+  "events": [
+    {
+      "at": "2026-11-20T14:55:22.550Z",
+      "event": "erc8004.plan",
+      "agentURI": "https://raw.githubusercontent.com/getrigbase/rigbase-payout/main/agent/rigbase-payout.agent.json",
+      "existingAgents": "0",
+      "to": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+      "taggedDataEndsWithSuffix": true
+    },
+    {
+      "at": "2026-11-20T14:55:22.766Z",
+      "event": "erc8004.cost",
+      "gas": "237724",
+      "estCELO": "0.04813911"
+    },
+    {
+      "at": "2026-11-20T14:55:22.870Z",
+      "event": "erc8004.sent",
+      "txHash": "0x16617527c18632ae4cb5f3d113d341f361338e4c5832cde29c9788c10670c7d1",
+      "celoscan": "https://celoscan.io/tx/0x16617527c18632ae4cb5f3d113d341f361338e4c5832cde29c9788c10670c7d1"
+    },
+    {
+      "at": "2026-11-20T14:55:24.542Z",
+      "event": "erc8004.confirmed",
+      "txHash": "0x16617527c18632ae4cb5f3d113d341f361338e4c5832cde29c9788c10670c7d1",
+      "status": "success",
+      "agentId": "10076"
+    }
+  ]
+}

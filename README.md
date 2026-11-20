@@ -111,6 +111,7 @@ npm install
 cp .env.example .env    # set WALLET_FILE and SESSION_KEY_FILE to paths OUTSIDE the repo
 set -a; . ./.env; set +a
 
+npm run pay -- fund-usdt 300                       # dry: CELO -> USD₮ treasury top-up via Textile (direct, tagged)
 npm run pay -- status                              # balances, nonce, 8004 agents, session, tag
 npm run pay -- identity                            # dry: ERC-8004 register plan + gas
 npm run pay -- grant                               # dry: Altana quoteGrantSession (cost, legs)
@@ -136,13 +137,15 @@ Payroll file format:
 
 Agent wallet: [`0x22d66bD658ad8b5269998545719941479ef4478d`](https://celoscan.io/address/0x22d66bD658ad8b5269998545719941479ef4478d)
 
-| Step | Tx | Tag verified |
-| --- | --- | --- |
-| ERC-8004 register (agentId: _tbd_) | _pending_ | _pending_ |
-| Altana `grantSession` (15 USD₮/week) | _pending_ | _pending_ |
-| Payout: contractor-lagos, USD₮ → cNGN via Textile | _pending_ | _pending_ |
-| Payout: contractor-remote-usd, USD₮ | _pending_ | _pending_ |
-| Over-cap payout (16 USD₮): refused, not broadcast | n/a | n/a |
+| Step | Route | Tx | Tag verified |
+| --- | --- | --- | --- |
+| ERC-8004 register, **agentId 10076** | direct | [0x16617527…c7d1](https://celoscan.io/tx/0x16617527c18632ae4cb5f3d113d341f361338e4c5832cde29c9788c10670c7d1) | ✅ tail, `verifyTx` |
+| Treasury top-up: approve CELO to the Textile reactor | direct | [0xf970babb…1dc5](https://celoscan.io/tx/0xf970babb365423f9225503de7f491cd1accb94d4bf86de290f8ece8206871dc5) | ✅ tail, `verifyTx` |
+| Treasury top-up: 300 CELO → 17.121009 USD₮ via Textile RFQ | direct | [0x791a936f…de64](https://celoscan.io/tx/0x791a936fb2f06dfaba0e1a1f8fb58cccf62eea3ce5f1347a25b2d54aff47de64) | ✅ tail, `verifyTx` |
+| Altana `grantSession` (15 USD₮/week) | relayed | _pending_ | _pending_ |
+| Payout: contractor-lagos, USD₮ → cNGN via Textile | relayed | _pending_ | _pending_ |
+| Payout: contractor-remote-usd, USD₮ | relayed | _pending_ | _pending_ |
+| Over-cap payout (16 USD₮): refused, not broadcast | n/a | n/a | n/a |
 
 The contractor addresses are fictional demo recipients controlled by RigBase.
 
