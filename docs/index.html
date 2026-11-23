@@ -62,11 +62,11 @@ footer{margin-top:28px;color:var(--mut);font-size:13px}
     <p>The session can spend at most <b>15 USD₮ per week</b>. On <span class="mono" id="ocWhen"></span> the agent was asked to pay <b id="ocReq"></b>, more than the cap allows.</p>
     <p><span class="pill no">refused</span> <span id="ocRes"></span></p>
     <p class="mono mut" id="ocMsg"></p>
-    <p class="mut" style="font-size:13px">Two layers: a local 7-day ledger refuses first. With <span class="mono">--probe-cap</span> the agent asks the Altana relay to simulate it anyway, and the account's on-chain spend limit rejects it. Over-cap intents are never broadcast. Try it yourself with <span class="mono">npm run pay -- run payroll/demo-over-cap.json</span> (dry run, no key needed beyond a read-only wallet file).</p>
+    <p class="mut" style="font-size:13px">Two layers: a local 7-day ledger refuses first. With <span class="mono">--probe-cap</span> the agent asks the Altana relay to simulate it anyway, and the account's on-chain spend limit rejects it. Over-cap intents are never broadcast. The exact mainnet run log is in <a href="https://github.com/getrigbase/rigbase-payout/tree/main/runs/live">runs/live/</a>; the CLI command is <span class="mono">npm run pay -- run payroll/demo-over-cap.json --probe-cap</span>.</p>
   </div>
   <div class="card c12"><h2>Session allowlist</h2><div id="allow" class="mono"></div></div>
 </div>
-<footer>Code: <a href="https://github.com/getrigbase/rigbase-payout">github.com/getrigbase/rigbase-payout</a> · Built by RigBase for Celo "Agents Open for Business" (Track 4 Altana Agent Wallets, Track 1 Textile FX Stablecoin Corridors) · No write actions on this page.</footer>
+<footer>Demo video: <a href="https://github.com/getrigbase/rigbase-payout/releases/download/v0.1.0/rigbase-payout-demo.mp4">MP4 (3:18)</a> · Code: <a href="https://github.com/getrigbase/rigbase-payout">github.com/getrigbase/rigbase-payout</a> · Built by RigBase for Celo "Agents Open for Business" (Track 4 Altana Agent Wallets, Track 1 Textile FX Stablecoin Corridors) · No write actions on this page.</footer>
 </div>
 <script>
 const RPC="https://forno.celo.org", SCAN="https://celoscan.io";

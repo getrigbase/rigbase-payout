@@ -1,8 +1,25 @@
+<p align="center"><img src="assets/logo-512.png" width="128" alt="RigBase Payout logo"></p>
+
 # RigBase Payout
 
-**A contractor-payroll agent on Celo.** RigBase Studio pays its freelance contractors in their own local stablecoin. The agent converts USD₮ through **Textile FX** and pays from an **Altana** session wallet that the chain holds to a weekly cap, a contract allowlist and an expiry.
+**Cross-border contractor payroll by an agent that can't overspend.**
+
+RigBase Studio pays its freelance contractors in their own local stablecoin. The agent converts USD₮ through **Textile FX** and pays from an **Altana** session wallet. The chain holds that wallet to a weekly cap, a contract allowlist and an expiry. It runs on **Celo mainnet**.
 
 Built for Celo **Agents Open for Business**: Track 4 (Altana Agent Wallets) and Track 1 (Stablecoin Corridors / Textile FX).
+
+| | |
+| --- | --- |
+| **Live app** (read-only, reads Celo mainnet in your browser) | https://getrigbase.github.io/rigbase-payout/ |
+| **Demo video** (3:18) | [rigbase-payout-demo.mp4](https://github.com/getrigbase/rigbase-payout/releases/download/v0.1.0/rigbase-payout-demo.mp4) · [1-minute cut](https://github.com/getrigbase/rigbase-payout/releases/download/v0.1.0/rigbase-payout-demo-1min.mp4) |
+| **Agent wallet** | [`0x22d66bD658ad8b5269998545719941479ef4478d`](https://celoscan.io/address/0x22d66bD658ad8b5269998545719941479ef4478d) |
+| **ERC-8004** | agentId **10076** ([register tx](https://celoscan.io/tx/0x16617527c18632ae4cb5f3d113d341f361338e4c5832cde29c9788c10670c7d1)) |
+| **Attribution tag** (ERC-8021) | `celo_f41eab517821` |
+| **Mainnet record** | [8 transactions](#on-chain-record-celo-mainnet): payouts in cNGN and USD₮, plus an over-cap payout refused by the on-chain limit |
+
+[![Demo video](assets/screenshots/02-architecture.png)](https://github.com/getrigbase/rigbase-payout/releases/download/v0.1.0/rigbase-payout-demo.mp4)
+
+<p align="center"><a href="https://getrigbase.github.io/rigbase-payout/"><img src="assets/screenshots/01-dashboard.png" width="720" alt="Live dashboard"></a><br><sub>The live dashboard shows balances, on-chain weekly caps (<code>spendInfos</code>), payouts, and the tag checked in your browser.</sub></p>
 
 ---
 
@@ -155,6 +172,14 @@ ERC-8004 agent: **#10076** in `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432`.
 **Lesson learned (Altana):** the wallet's first transaction must go through the relay. Our dry runs registered the account with the relay at EOA nonce 0, and three direct transactions then moved the nonce. The relay kept the stale 7702 authorization (`invalid auth item nonce, expected 3, got 0`). `pay self-delegate --live` fixes this with one tagged type-4 tx to the relay's own `accountProxy`.
 
 The contractor addresses are fictional demo recipients controlled by RigBase.
+
+<p align="center"><img src="assets/screenshots/03-overcap-refused.png" width="720" alt="Over-cap payout refused"></p>
+
+## Status and honesty notes
+
+- **Pilot.** RigBase Studio is the first and only user so far. The contractors are fictional demo recipients whose wallets RigBase controls. No external users or volume are claimed.
+- **No wash trading.** Payouts are one-way. Funds stay with the contractor wallets.
+- The relayed transactions carry our tag *inside* the relayed intent, not at the tail of the outer transaction (see below).
 
 ## Open questions
 
