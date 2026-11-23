@@ -1,0 +1,43 @@
+{
+  "wallet": "0x22d66bD658ad8b5269998545719941479ef4478d",
+  "agentId": 10076,
+  "identityRegistry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+  "attributionCode": "celo_f41eab517821",
+  "sessionKeyHash": "0x6fb8d26f8c99653a885bf509b315d86f2f72ab81a00c79ed55d6b90ce3ea0717",
+  "sessionExpiry": "2026-12-04T15:01:32Z",
+  "accountProxy": "0xc0f16888f4198f53892c53af859f673e23f26fa3",
+  "tokens": {
+    "USDT": { "address": "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e", "decimals": 6, "label": "USD₮" },
+    "USDC": { "address": "0xcebA9300f2b948710d2653dD7B07f33A8B32118C", "decimals": 6, "label": "USDC" },
+    "cNGN": { "address": "0xF6829D7393dAe24509eb1E52eE8e572e2E271a4f", "decimals": 6, "label": "cNGN" },
+    "IDRX": { "address": "0x18Bc5bcC660cf2B9cE3cd51a404aFe1a0cBD3C22", "decimals": 2, "label": "IDRX" }
+  },
+  "allowlist": [
+    "USD₮.approve(address,uint256)",
+    "USD₮.transfer(address,uint256)",
+    "Textile LimitOrderReactor 0xa9AA0a64769cBed4d3B1Ceb4Df01CdE915C235b3 (swap settlement)",
+    "cNGN.transfer(address,uint256)",
+    "IDRX.transfer(address,uint256)"
+  ],
+  "contractors": [
+    { "id": "contractor-lagos", "label": "Lagos (fictional demo contractor)", "corridor": "USD₮ → cNGN", "token": "cNGN", "address": "0xceBab84B36620630859040261bA3E1Bae528b000" },
+    { "id": "contractor-jakarta", "label": "Jakarta (fictional demo contractor)", "corridor": "USD₮ → IDRX", "token": "IDRX", "address": "0xFE73e70B8CC08fFC9F5d4D54Af2Ab48BFfC13B34" },
+    { "id": "contractor-remote-usd", "label": "Remote (fictional demo contractor)", "corridor": "USD₮", "token": "USDT", "address": "0x4BA98f11F6dA3d87A3E9840EB21253815206B838" }
+  ],
+  "txs": [
+    { "when": "2026-11-20T14:55Z", "what": "ERC-8004 register, agentId 10076", "route": "direct", "hash": "0x16617527c18632ae4cb5f3d113d341f361338e4c5832cde29c9788c10670c7d1" },
+    { "when": "2026-11-20T14:56Z", "what": "Treasury top-up: approve CELO to the Textile reactor", "route": "direct", "hash": "0xf970babb365423f9225503de7f491cd1accb94d4bf86de290f8ece8206871dc5" },
+    { "when": "2026-11-20T14:56Z", "what": "Treasury top-up: 300 CELO → 17.121009 USD₮ via Textile RFQ", "route": "direct", "hash": "0x791a936fb2f06dfaba0e1a1f8fb58cccf62eea3ce5f1347a25b2d54aff47de64" },
+    { "when": "2026-11-20T15:01Z", "what": "EIP-7702 delegation to Altana accountProxy", "route": "direct", "hash": "0x8ac312d5d46fa5b8ae4a6705488106e79f42a4c49719a39a7f6edeb1d310cd85" },
+    { "when": "2026-11-20T15:01Z", "what": "Altana grantSession: 15 USD₮/week cap, allowlist, 14-day expiry", "route": "relayed", "hash": "0x7116b2dd57ea77544fbdb691ae6c2f6e94ec169ea893ad592969928c4c9c92d2", "note": "SDK-built intent, no tag hook" },
+    { "when": "2026-11-20T15:02Z", "what": "Payout 0.10 USD₮ → contractor-remote-usd (relay tag test)", "route": "relayed", "hash": "0x51172c5868e446284a324d51633a79c92f3b0342d3bdea64ac39a442a1fca0be", "payout": true },
+    { "when": "2026-11-20T15:02Z", "what": "Payout 1.50 USD₮ → 2,161.60 cNGN → contractor-lagos (Textile approve + swap + transfer, one intent)", "route": "relayed", "hash": "0xdce0d203d8a7587170fa9ebb11a38bc261f64be18492c53629341a02a06cb86e", "payout": true },
+    { "when": "2026-11-20T15:02Z", "what": "Payout 1.00 USD₮ → contractor-remote-usd", "route": "relayed", "hash": "0xa159d88dfad7b2e1a977fd08a76b0e1fe5c91d70ebc70ac1f0e0436274387452", "payout": true }
+  ],
+  "overCap": {
+    "when": "2026-11-20T15:02Z",
+    "request": "16.00 USD₮ → contractor-remote-usd",
+    "result": "Refused by the session spend limit during relay simulation; never broadcast.",
+    "message": "This session key's spending limit does not cover this in USD₮. Grant a new session key with a higher limit, as limits cannot be raised."
+  }
+}

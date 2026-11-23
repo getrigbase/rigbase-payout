@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RigBase Payout · live dashboard</title>
+<link rel="icon" href="logo.svg">
+<style>
+:root{--bg:#0B1120;--card:#111A2E;--line:#1F2A44;--fg:#E5E7EB;--mut:#94A3B8;--y:#FCFF52;--g:#35D07F;--r:#F87171}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:var(--g);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 60px}
+header{display:flex;align-items:center;gap:16px;margin-bottom:6px}header img{width:52px;height:52px}
+h1{font-size:26px;margin:0}.tag{color:var(--mut);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.c4{grid-column:span 4}.c6{grid-column:span 6}.c8{grid-column:span 8}.c12{grid-column:span 12}
+@media(max-width:900px){.c4,.c6,.c8{grid-column:span 12}}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:0 0 12px}
+.big{font-size:28px;font-weight:700}td.mono,td a.mono{white-space:nowrap}.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:13px;word-break:break-all}
+.kv{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:6px 0}.kv:last-child{border:0}
+.mut{color:var(--mut)}.bar{height:12px;background:#0B1324;border-radius:8px;overflow:hidden;margin:8px 0 4px}.bar>i{display:block;height:100%;background:var(--g)}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--mut);font-weight:500;font-size:13px}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;border:1px solid var(--line)}
+.ok{color:var(--g);border-color:#1f5a3c}.no{color:var(--r);border-color:#5a1f1f}.dir{color:var(--y);border-color:#5a5a1f}
+.capline{border-top:3px solid var(--y);margin-top:6px}
+footer{margin-top:28px;color:var(--mut);font-size:13px}
+</style>
+</head>
+<body><div class="wrap">
+<header><img src="logo.svg" alt="RigBase Payout logo"><div><h1>RigBase Payout</h1></div></header>
+<p class="tag">Cross-border contractor payroll by an agent that can't overspend. A read-only view: every number below is read live from Celo mainnet (forno.celo.org) in your browser.</p>
+
+<div class="grid">
+  <div class="card c4"><h2>Agent wallet</h2>
+    <div class="mono"><a id="walletLink" target="_blank"></a></div>
+    <div id="bals" style="margin-top:10px"><div class="mut">Loading balances…</div></div>
+  </div>
+  <div class="card c4"><h2>Altana session: weekly caps (on-chain)</h2>
+    <div id="caps"><div class="mut">Reading spendInfos…</div></div>
+    <div class="mut" style="font-size:12px;margin-top:8px">Read from the wallet's account contract (<span class="mono">spendInfos(keyHash)</span>). The chain enforces these; the agent cannot raise them. Periods start Monday 00:00 UTC. Session expires <span id="exp"></span>.</div>
+  </div>
+  <div class="card c4"><h2>Identity &amp; attribution</h2>
+    <div class="kv"><span>ERC-8004 agentId</span><b id="agentId"></b></div>
+    <div class="kv"><span>Registry</span><a class="mono" id="reg" target="_blank"></a></div>
+    <div class="kv"><span>Owner on-chain</span><span id="owner" class="mono mut">…</span></div>
+    <div class="kv"><span>Attribution tag</span><b class="mono" id="code"></b></div>
+    <div class="kv"><span>Account (EIP-7702)</span><span id="code7702" class="mono mut">…</span></div>
+  </div>
+
+  <div class="card c12"><h2>On-chain activity (tag checked live in your browser)</h2>
+    <table><thead><tr><th>When (UTC)</th><th>What</th><th>Route</th><th>Tx</th><th>Status</th><th>Tag celo_f41eab517821</th></tr></thead><tbody id="txs"></tbody></table>
+    <div class="mut" style="font-size:12px;margin-top:8px"><b>Direct</b> transactions carry the ERC-8021 tag at the end of calldata. <b>Relayed</b> transactions are broadcast by the Altana relay; our tag sits inside the relayed intent (on every call we build), so this page scans the whole input for the ERC-8021 marker.</div>
+  </div>
+
+  <div class="card c6"><h2>Contractors (allowlisted payees)</h2>
+    <table><thead><tr><th>Contractor</th><th>Corridor</th><th>Balance</th></tr></thead><tbody id="ctr"></tbody></table>
+    <div class="mut" style="font-size:12px;margin-top:8px">Fictional demo contractors whose wallets RigBase controls. This is a pilot: RigBase Studio is the first user, and no external users or volume are claimed.</div>
+  </div>
+  <div class="card c6"><h2>Over-cap payout: what happens</h2>
+    <div class="capline"></div>
+    <p>The session can spend at most <b>15 USD₮ per week</b>. On <span class="mono" id="ocWhen"></span> the agent was asked to pay <b id="ocReq"></b>, more than the cap allows.</p>
+    <p><span class="pill no">refused</span> <span id="ocRes"></span></p>
+    <p class="mono mut" id="ocMsg"></p>
+    <p class="mut" style="font-size:13px">Two layers: a local 7-day ledger refuses first. With <span class="mono">--probe-cap</span> the agent asks the Altana relay to simulate it anyway, and the account's on-chain spend limit rejects it. Over-cap intents are never broadcast. Try it yourself with <span class="mono">npm run pay -- run payroll/demo-over-cap.json</span> (dry run, no key needed beyond a read-only wallet file).</p>
+  </div>
+  <div class="card c12"><h2>Session allowlist</h2><div id="allow" class="mono"></div></div>
+</div>
+<footer>Code: <a href="https://github.com/getrigbase/rigbase-payout">github.com/getrigbase/rigbase-payout</a> · Built by RigBase for Celo "Agents Open for Business" (Track 4 Altana Agent Wallets, Track 1 Textile FX Stablecoin Corridors) · No write actions on this page.</footer>
+</div>
+<script>
+const RPC="https://forno.celo.org", SCAN="https://celoscan.io";
+const MARKER="80218021802180218021802180218021";
+let D;
+async function rpc(method, params){const r=await fetch(RPC,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:1,method,params})});const j=await r.json();if(j.error)throw new Error(j.error.message);return j.result}
+const pad=a=>a.toLowerCase().replace(/^0x/,"").padStart(64,"0");
+const fmt=(raw,dec,max=4)=>{const s=raw.toString().padStart(dec+1,"0");const i=s.slice(0,s.length-dec)||"0";let f=dec?s.slice(-dec):"";f=f.slice(0,max).replace(/0+$/,"");return Number(i).toLocaleString("en-US")+(f?"."+f:"")};
+async function bal(token, who){if(!token)return BigInt(await rpc("eth_getBalance",[who,"latest"]));return BigInt(await rpc("eth_call",[{to:token,data:"0x70a08231"+pad(who)},"latest"]))}
+const short=h=>h.slice(0,8)+"…"+h.slice(-4);
+function findTags(input){const hex=input.slice(2).toLowerCase();const out=[];let i=hex.indexOf(MARKER);while(i!==-1){if(i%2===0&&i>=4){const schema=parseInt(hex.slice(i-2,i),16),len=parseInt(hex.slice(i-4,i-2),16),st=i-4-len*2;if(schema===0&&st>=0){let s="";for(let k=st;k<i-4;k+=2)s+=String.fromCharCode(parseInt(hex.slice(k,k+2),16));out.push({tail:i+MARKER.length===hex.length,codes:s.split(",")})}}i=hex.indexOf(MARKER,i+2)}return out}
+async function main(){
+  D=await (await fetch("data.json")).json();
+  const w=D.wallet; const wl=document.getElementById("walletLink"); wl.textContent=w; wl.href=`${SCAN}/address/${w}`;
+  document.getElementById("agentId").textContent="#"+D.agentId;
+  const reg=document.getElementById("reg"); reg.textContent=short(D.identityRegistry); reg.href=`${SCAN}/address/${D.identityRegistry}`;
+  document.getElementById("code").textContent=D.attributionCode;
+  document.getElementById("exp").textContent=new Date(D.sessionExpiry).toUTCString();
+  document.getElementById("allow").innerHTML=D.allowlist.map(a=>"• "+a).join("<br>");
+  const oc=D.overCap; ocWhen.textContent=oc.when.replace("T"," ").replace("Z"," UTC"); ocReq.textContent=oc.request; ocRes.textContent=oc.result; ocMsg.textContent="“"+oc.message+"”";
+  // balances
+  try{const rows=[["CELO",await bal(null,w),18]];for(const[k,t] of Object.entries(D.tokens))rows.push([t.label,await bal(t.address,w),t.decimals]);
+    document.getElementById("bals").innerHTML=rows.map(([k,v,d])=>`<div class="kv"><span>${k}</span><b>${fmt(v,d)}</b></div>`).join("")}catch(e){bals.innerHTML=`<span class="no">RPC error: ${e.message}</span>`}
+  // ERC-8004 owner
+  try{const o=await rpc("eth_call",[{to:D.identityRegistry,data:"0x6352211e"+pad("0x"+D.agentId.toString(16))},"latest"]);const own="0x"+o.slice(-40);owner.innerHTML=own.toLowerCase()===w.toLowerCase()?'<span class="pill ok">RigBase wallet ✓</span>':own}catch(e){owner.textContent="n/a"}
+  try{const c=await rpc("eth_getCode",[w,"latest"]);code7702.innerHTML=c.startsWith("0xef0100")?`<span class="pill ok">delegated</span> → <a href="${SCAN}/address/0x${c.slice(8)}" target="_blank">${short("0x"+c.slice(8))}</a>`:"not delegated"}catch(e){}
+  // caps
+  try{const r=await rpc("eth_call",[{to:w,data:"0xdcc09ebf"+pad(D.sessionKeyHash)},"latest"]);const h=r.slice(2);const n=parseInt(h.slice(64,128),16);const byAddr={};for(const[k,t] of Object.entries(D.tokens))byAddr[t.address.toLowerCase()]=t;
+    let html="";for(let i=0;i<n;i++){const base=128+i*7*64;const word=j=>h.slice(base+j*64,base+(j+1)*64);const tok="0x"+word(0).slice(24);const t=byAddr[tok]||{label:tok,decimals:18};const limit=BigInt("0x"+word(2)),spent=BigInt("0x"+word(3)),last=Number(BigInt("0x"+word(4))),cur=Number(BigInt("0x"+word(6))),curSpent=BigInt("0x"+word(5));
+      const thisWeek=last>=cur?spent:curSpent;const pct=Number(thisWeek*1000n/limit)/10;
+      html+=`<div style="margin-bottom:10px"><div class="kv" style="border:0;padding:0"><b>${t.label}</b><span>${fmt(thisWeek,t.decimals,2)} / ${fmt(limit,t.decimals,2)} this week</span></div><div class="bar"><i style="width:${Math.max(pct,0.5)}%"></i></div>`+(last&&last<cur&&spent>0n?`<div class="mut" style="font-size:12px">Previous week (from ${new Date(last*1000).toISOString().slice(0,10)}): ${fmt(spent,t.decimals,2)} spent</div>`:"")+`</div>`}
+    caps.innerHTML=html||'<span class="mut">no caps found</span>'}catch(e){caps.innerHTML=`<span class="no">${e.message}</span>`}
+  // contractors
+  const ctr=document.getElementById("ctr");for(const c of D.contractors){const t=D.tokens[c.token];let b="…";try{b=fmt(await bal(t.address,c.address),t.decimals,2)+" "+t.label}catch(e){}
+    ctr.insertAdjacentHTML("beforeend",`<tr><td><b>${c.id}</b><br><a class="mono" href="${SCAN}/address/${c.address}" target="_blank">${short(c.address)}</a></td><td>${c.corridor}</td><td>${b}</td></tr>`)}
+  // txs
+  const tb=document.getElementById("txs");
+  for(const t of D.txs){const id="t"+t.hash.slice(2,10);tb.insertAdjacentHTML("beforeend",`<tr><td class="mono">${t.when.replace("T"," ").replace("Z","")}</td><td>${t.what}${t.note?`<div class="mut" style="font-size:12px">${t.note}</div>`:""}</td><td><span class="pill ${t.route==="direct"?"dir":""}">${t.route}</span></td><td><a class="mono" href="${SCAN}/tx/${t.hash}" target="_blank">${short(t.hash)}</a></td><td id="${id}s" class="mut">…</td><td id="${id}g" class="mut">…</td></tr>`);
+    (async()=>{try{const [tx,rc]=await Promise.all([rpc("eth_getTransactionByHash",[t.hash]),rpc("eth_getTransactionReceipt",[t.hash])]);document.getElementById(id+"s").innerHTML=rc.status==="0x1"?'<span class="pill ok">success</span>':'<span class="pill no">failed</span>';
+      const tags=findTags(tx.input).filter(x=>x.codes.includes(D.attributionCode));document.getElementById(id+"g").innerHTML=tags.length?`<span class="pill ok">✓ ${tags.some(x=>x.tail)?"at tail":"nested in intent"}</span>`:'<span class="pill no">none</span>'}catch(e){document.getElementById(id+"s").textContent="rpc error"}})()}
+}
+main();
+</script>
+</body></html>

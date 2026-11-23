@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <title>RigBase Payout</title>
+  <!-- Mark: payroll bars that always stay under a hard spending cap. -->
+  <rect x="0" y="0" width="1024" height="1024" rx="224" fill="#0F172A"/>
+  <line x1="232" y1="296" x2="792" y2="296" stroke="#FCFF52" stroke-width="64" stroke-linecap="round"/>
+  <rect x="232" y="560" width="136" height="232" rx="28" fill="#35D07F"/>
+  <rect x="444" y="456" width="136" height="336" rx="28" fill="#35D07F"/>
+  <rect x="656" y="384" width="136" height="408" rx="28" fill="#35D07F"/>
+</svg>
